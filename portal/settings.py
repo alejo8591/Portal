@@ -8,10 +8,10 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
-"""
-    import dj_database_url
-    DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
-"""
+
+import dj_database_url
+DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
