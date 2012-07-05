@@ -10,7 +10,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 import dj_database_url
-DATABASES = {'portal': dj_database_url.config(portal='postgres://localhost')}
+DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
 """
     DATABASES = {
         'default': {
