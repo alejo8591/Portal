@@ -1,4 +1,10 @@
 # Django settings for portal project.
+#parameter config
+import dj_database_url
+import os
+ROOT_CONF = os.path.dirname(os.path.realpath(__file__))
+__version__ = "0.0.1"
+__status__ = "alpha"
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -8,33 +14,26 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
-
-import dj_database_url
-DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
-
+#DB system
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'portal',                      # Or path to database file if using sqlite3.
-        'USER': 'portal',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'USER': 'postgres',                      # Not used with sqlite3.
+        'PASSWORD': '3193115',                  # Not used with sqlite3.
+        'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
 
-# Local time zone for this installation. Choices can be found here:
-# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-# although not all choices may be available on all operating systems.
-# On Unix systems, a value of None will cause Django to use the same
-# timezone as the operating system.
-# If running in a Windows environment this must be set to the same as your
+#DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
+
 # system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/Bogota'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es_es'
 
 SITE_ID = 1
 
@@ -48,31 +47,15 @@ USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
-
-# Absolute filesystem path to the directory that will hold user-uploaded files.
-# Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = ''
-
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash.
-# Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = ''
-
-# Absolute path to the directory static files should be collected to.
-# Don't put anything in this directory yourself; store your static files
-# in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
-
-# URL prefix for static files.
-# Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
-
+#statics files
+MEDIA_ROOT = ROOT_CONF + '/uploads/'
+MEDIA_URL = '/uploads/'
+STATIC_ROOT = ROOT_CONF + '/static/'
+STATIC_URL = '/static'
+ADMIN_MEDIA_PREFIX = STATIC_URL + '/grappelli/'
 # Additional locations of static files
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    (ROOT_CONF + '/static_files/'),
 )
 
 # List of finder classes that know how to find static files in
@@ -93,6 +76,8 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
+ADMIN_MEDIA_PREFIX = STATIC_URL + "grappelli/"
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -109,9 +94,7 @@ ROOT_URLCONF = 'portal.urls'
 WSGI_APPLICATION = 'portal.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+     (ROOT_CONF + '/templates'),
 )
 
 INSTALLED_APPS = (
@@ -120,12 +103,34 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
+    'grappelli',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
+    'django.contrib.flatpages',
+    'tinymce',
     # 'django.contrib.admindocs',
+    #'blogman',
 )
+
+GRAPPELLI_ADMIN_TITLE = "<li class='user-options-container collapse closed'> \
+<a href='javascript://' class='user-options-handler collapse-handler'> \
+Portal %s</a><ul class='user-options'><li><a href='/' \
+style='padding:10px;'>Back to site</a></li></ul></li>" % (__version__)
+
+#Config tinyMCE
+TINYMCE_JS_URL = 'http://127.0.0.1:8000/site_media/js/tiny_mce/tiny_mce.js'
+TINYMCE_JS_ROOT = 'http://127.0.0.1:8000/site_media/js/tinymce/'
+TINYMCE_DEFAULT_CONFIG = {
+   'plugins': "table,spellchecker,paste,searchreplace",
+   'theme': "advanced",
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 10,
+}
+
+TINYMCE_SPELLCHECKER = False
+TINYMCE_COMPRESSOR = False
+TINYMCE_FILEBROWSER = True
+CMS_USE_TINYMCE = True
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
