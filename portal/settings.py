@@ -118,8 +118,8 @@ Portal %s</a><ul class='user-options'><li><a href='/' \
 style='padding:10px;'>Back to site</a></li></ul></li>" % (__version__)
 
 #Config tinyMCE
-TINYMCE_JS_URL = 'http://127.0.0.1:8000/site_media/js/tiny_mce/tiny_mce.js'
-TINYMCE_JS_ROOT = 'http://127.0.0.1:8000/site_media/js/tinymce/'
+TINYMCE_JS_URL = MEDIA_URL + 'js/tiny_mce/tiny_mce.js'
+TINYMCE_JS_ROOT = MEDIA_URL + 'js/tiny_mce/tiny_mce.js'
 TINYMCE_DEFAULT_CONFIG = {
    'plugins': "table,spellchecker,paste,searchreplace",
    'theme': "advanced",
