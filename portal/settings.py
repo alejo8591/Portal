@@ -109,7 +109,7 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'tinymce',
     # 'django.contrib.admindocs',
-    #'blogman',
+    'blogman',
 )
 
 GRAPPELLI_ADMIN_TITLE = "<li class='user-options-container collapse closed'> \
