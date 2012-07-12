@@ -1,0 +1,16 @@
+<html>
+    <head>Entries index</head>
+    <body>
+        <h1>Post index</h1>
+        {% for entry in entry_list %}
+            {{ entry.e_title }}
+            <p>Published on {{ entry.e_pub_date|date:"F j, Y" }}</p>
+            {% if entry.e_excerpt_html %}
+                {{ entry.e_excerpt_html|safe }}
+            {% else %}
+                {{ entry.e_body_html|truncatewords_html:"50"|safe }}
+            {% endif %}
+            <p><a href="{{ entry.get_absolute_url }}">Read full Entry</a></p>
+        {% endfor %}
+    </body>
+</html>
