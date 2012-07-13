@@ -1,0 +1,13 @@
+<html>
+    <head>
+        <title>Entry</title>
+    </head>
+    <body>
+        {% if entry.body_html %}
+            <h1>{{ entry.title }}</h1>
+                <p>
+                    {{ entry.body_html|safe }}
+                </p>
+        {%endif%}
+     </body>
+</html>    
