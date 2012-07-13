@@ -9,10 +9,10 @@ class FlatPageAdmin(FlatPageAdminOld):
               '/Users/alejo8591/Documents/portal/Portal/portal/static/tiny_mce/textareas.js',)
         
 class CategoryAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'b_slug':['b_title']}
+    prepopulated_fields = {'slug':['slug']}
     
 class EntryAdmin(admin.ModelAdmin):
-    prepopulated_fields = { 'e_slug': ['e_title'] }
+    prepopulated_fields = { 'slug': ['slug'] }
         
 admin.site.unregister(FlatPage)
 admin.site.register(FlatPage, FlatPageAdmin)
