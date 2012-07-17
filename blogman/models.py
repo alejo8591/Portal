@@ -42,12 +42,6 @@ class Entry(models.Model):
     excerpt_html = models.TextField(editable=False, blank=True)
     body_html = models.TextField(editable=False, blank=True)
     
-    def save(self, force_insert=False, force_update=False):
-        self.body_html = markdown(self.body)
-        if self.excerpt:
-            self.excerpt_html = markdown(self.excerpt)
-        super(Entry, self).save(force_insert, force_update)
-    
     class Meta:
         verbose_name_plural = "Entries"
         ordering = ['-pub_date']
@@ -55,6 +49,14 @@ class Entry(models.Model):
     def __unicode__(self):
         return self.title
     
+    def save(self, force_insert=False, force_update=False):
+        self.body_html = markdown(self.body)
+        if self.excerpt:
+            self.excerpt_html = markdown(self.excerpt)
+        super(Entry, self).save(force_insert, force_update)
+   
+    @models.permalink
     def get_absolute_url(self):
-        return '/%s/%s/' %(self.pub_date.strftime("%Y/%b/%d").lower(), self.slug)
-    
+        return ('blogman_entry_detail', (), { 'year': self.pub_date.strftime('%Y'), 'month': self.pub_date.strftime('%b').lower(), 'day': self.pub_date.strftime('%d'),'slug': self.slug})
+        
+    #get_absolute_url = models.permalink(get_absolute_url)
