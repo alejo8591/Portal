@@ -2,11 +2,12 @@ from django.contrib import admin
 from django.contrib.flatpages.models import FlatPage
 from django.contrib.flatpages.admin import FlatPageAdmin as FlatPageAdminOld
 from blogman.models import Category, Entry
+from django.conf import settings
 
 class FlatPageAdmin(FlatPageAdminOld):
     class Media:
-        js = ('/Users/alejo8591/Documents/portal/Portal/portal/static/tiny_mce/tiny_mce.js',
-              '/Users/alejo8591/Documents/portal/Portal/portal/static/tiny_mce/textareas.js',)
+        pass
+        #js = ('%tiny_mce/tiny_mce.js' % settings.STATIC_URL,)
         
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':['slug']}
