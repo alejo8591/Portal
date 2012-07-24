@@ -3,7 +3,7 @@ from django.conf.urls import patterns, url, include
 from blogman.models import Entry
 
 entry_info_dict = {
-    'queryset': Entry.objects.all(),
+    'queryset': Entry.objects.filter(status=Entry.LIVE_STATUS),
     'date_field' : 'pub_date',
 }
 
@@ -16,5 +16,6 @@ urlpatterns = patterns('django.views.generic.date_based',
      'blogman_entry_archive_month'),
     (r'^(?P<year>\d{4})/(?P<month>\w{3})/(?P<day>\d{2})/$', 'archive_day',  entry_info_dict,
      'blogman_entry_archive_month'),
-    (r'^(?P<year>\d{4})/(?P<month>\w{3})/(?P<day>\d{2})/(?P<slug>[-\w]+)/$', entry_info_dict,'blogman_entry_archive_month', 'blogman_entry_detail'),
+    (r'^(?P<year>\d{4})/(?P<month>\w{3})/(?P<day>\d{1,2})/(?P<slug>[-\w]+)/$', 'object_detail', entry_info_dict,
+     'blogman_entry_detail'),
 )
