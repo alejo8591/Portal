@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from blogman.views import entries_index
 from blogman.models import Entry
+from django.conf import settings
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -22,9 +23,10 @@ urlpatterns = patterns('',
     (r'^grappelli/', include('grappelli.urls')),
     #url(r'^', include('django.contrib.flatpages.urls')),
     (r'^blogman/', include('blogman.urls')),
+    (r'^blogman/category/$', include('blogman.category_urls'))
 )
 
-from django.conf import settings
+
 if settings.DEBUG:
     urlpatterns += patterns('',
         (r'^site_media/(?P<path>.*)$', 'django.views.static.serve',
