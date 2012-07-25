@@ -15,7 +15,9 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
     (r'^tinymce/', include('tinymce.urls')),
     (r'^grappelli/', include('grappelli.urls')),
-    (r'^blogman/', include('blogman.urls')),
+    (r'^blogman/', include('blogman.urls.entries')),
+    (r'^blogman/categories/', include('blogman.urls.categories')),
+    (r'^blogman/links/', include('blogman.urls.links')),
     url(r'^', include('django.contrib.flatpages.urls')),
 )
 

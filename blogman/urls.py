@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url, include
-from blogman import urls
+from blogman.urls import categories, entries, links
 
 entry_info_dict = {
     'queryset': Entry.objects.filter(status=Entry.LIVE_STATUS),
