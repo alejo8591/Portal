@@ -1,7 +1,5 @@
-<html>
-    <head>Entries index</head>
-    <body>
-        <h1>Post index</h1>
+{% extends "blogman/base.html" %}
+{%block content %}
         {% for entry in entry_list %}
             {{ entry.title }}
             <p>Published on {{ entry.pub_date|date:"F j, Y" }}</p>
@@ -12,5 +10,6 @@
             {% endif %}
             <p><a href="{{ entry.get_absolute_url }}">Read full Entry</a></p>
         {% endfor %}
-    </body>
-</html>
+        
+{% endblock %}
+  
