@@ -1,8 +1,5 @@
-<html>
-    <head>
-        <title>Entry</title>
-    </head>
-    <body>
+{% extends "blogman/base.html" %}
+{% block content %}
         {% for entry in latest %}
             <h2>{{ entry.title }}</h2>
             <p>Published on {{ entry.pub_date|date:"F j, Y" }}</p>
@@ -13,5 +10,4 @@
             {% endif %}
             <p><a href="{{ entry.get_absolute_url }}">Read More</a></p>
         {%endfor%}
-    </body>
-</html>
+{% endblock %}
