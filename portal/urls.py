@@ -21,7 +21,6 @@ urlpatterns = patterns('',
     url(r'^', include('django.contrib.flatpages.urls')),
 )
 
-
 if settings.DEBUG:
     urlpatterns += patterns('',
         (r'^site_media/(?P<path>.*)$', 'django.views.static.serve',
