@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-    <html>
+<html lang="es">
+<head>
         <head>
             <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
             <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
@@ -8,8 +9,21 @@
             <title>Blogman: {{ object.title }}</title>
         </head>
         <body>
-            <h1>{{ object.title }}</h1>
-            {% block content %}
-            {% endblock %}
-        </body>
-    </html>
+            <header>
+                <h1>Mi sitio web</h1>
+                <p>Mi sitio web creado en html5</p>
+            </header>
+            <section>
+                <h1>{{ object.title }}</h1>
+                    {% block content %}
+                    {% endblock %}
+            </section>
+            <aside>
+         <h3>Titulo de contenido</h3>
+         <p>contenido</p>
+            </aside>
+            <footer> </span>
+            <p style="padding-left: 30px;"><span style="color: #333399;"> Creado por mi el 2011</span></p>
+            <span style="color: #333399;"></footer>
+    </body>
+</html>
