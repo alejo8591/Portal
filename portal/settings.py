@@ -107,8 +107,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.flatpages',
+    'south',
     'tinymce',
-    #in test
+    # ------ in test -------
     #'tagging',
     'taggit',
     # 'django.contrib.admindocs',

@@ -8,5 +8,10 @@ def entries_index(request):
 
 def category_detail(request, slug):
     category = get_object_or_404(Category, slug=slug)
-    return render_to_response('blogman/category_detail.html',
-                              {'object_list':category.live_entry_set.all()})
+    return object_list(request, queryset=category.entry_set.all(),
+                       extra_context = {'category':category})
+    """
+        return render_to_response('blogman/category_detail.html',
+                              {'object_list':category.live_entry_set.all(),
+                               'category': category })
+    """

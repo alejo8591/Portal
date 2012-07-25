@@ -2,10 +2,13 @@
 from django.db import models
 from datetime import datetime
 from django.contrib.auth.models import User
-# ----- tagging in test
-#from tagging.fields import TagField
+
 from taggit.managers import TaggableManager
 from markdown import markdown
+
+class LiveEntryManager(models.Manager):
+    def get_query_set(self):
+        return super(LiveEntryManager, self).get_query_set().filter(status=self.model.LIVE_STATUS)
 
 class Category(models.Model):
     title = models.CharField(max_length=250, verbose_name='Título', help_text="Título de la Categoria, max. 250 caracteres")
@@ -26,11 +29,7 @@ class Category(models.Model):
     
     def __unicode__(self):
         return self.title
-    
-class LiveEntryManager(models.Manager):
-    def get_query_set(self):
-        return super(LiveEntryManager, self).get_query_set().filter(status=self.model.LIVE_STATUS)
-    
+        
 class Entry(models.Model):
     # Constants for model Entry refer to a Status post
     LIVE_STATUS = 1
@@ -73,10 +72,14 @@ class Entry(models.Model):
             self.excerpt_html = markdown(self.excerpt)
         super(Entry, self).save(force_insert, force_update)
    
-    #@models.permalink
+    @models.permalink
     def get_absolute_url(self):
-        return "/blogman/%s/%s/" % (self.pub_date.strftime("%Y/%b/%d").lower(), self.slug)
-        
+        return ('blogman_entry_detail', (), {
+            'year': self.pub_date.strftime('%Y'),
+            'month': self.pub_date.strftime('%b').lower(),
+            'day': self.pub_date.strftime('%d'),
+            'slug': self.slug
+        })
     #get_absolute_url = models.permalink(get_absolute_url)
     
     live = LiveEntryManager()
@@ -93,8 +96,20 @@ class Link(models.Model):
     slug = models.SlugField(unique_for_date='pub_date')
     tags = TaggableManager()
     enable_comments = models.BooleanField(default=True)
-    post_elsewhere = models.BooleanField('Post to Delicious', default=True)
+    
+    class Meta:
+        ordering = ['-pub_date']
     
 
     def __unicode__(self):
         return self.title
+        
+        
+    @models.permalink
+    def get_absolute_url(self):
+        return ('blogman_entry_detail', (), {
+            'year': self.pub_date.strftime('%Y'),
+            'month': self.pub_date.strftime('%b').lower(),
+            'day': self.pub_date.strftime('%d'),
+            'slug': self.slug
+        })
