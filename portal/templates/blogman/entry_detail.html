@@ -1,4 +1,5 @@
 {% extends "blogman/base.html" %}
 {% block content %}
+    {% block title %} {{ block.super }} My blogman {% endblock %}
         {{ object.body|safe }}
 {% endblock %}
