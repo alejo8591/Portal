@@ -1,0 +1,6 @@
+{% extends "blogman/base.html" %}
+{% block content %}
+    <h1>{{ object.title }}</h1>
+    {{object.description_html|safe }}
+    <p><a href="{{ object.url }}">View site</a></p>
+{% endblock %}
