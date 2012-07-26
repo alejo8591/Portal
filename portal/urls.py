@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     (r'^blogman/', include('blogman.urls.entries')),
     (r'^blogman/categories/', include('blogman.urls.categories')),
     (r'^blogman/links/', include('blogman.urls.links')),
+    (r'^comments/', include('django.contrib.comments.urls')),
     url(r'^', include('django.contrib.flatpages.urls')),
 )
 

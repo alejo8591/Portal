@@ -4,7 +4,7 @@
     <ul>
         {% for month in date_list %}
             <li>
-                <a href="/blogman/entries/{{year}}/{{ month|date:"b" }}/">{{ month|date:"F" }}</a>
+                <a href="{% url blogman_entry_archive_month year,month|date:"b" %}">{{ month|date:"F" }}</a>
             </li>
         {% endfor %}
     </ul>

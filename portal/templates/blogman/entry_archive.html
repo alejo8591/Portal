@@ -11,3 +11,7 @@
             <p><a href="{{ entry.get_absolute_url }}">Read More</a></p>
         {%endfor%}
 {% endblock %}
+
+{% block whatis %}
+    <p>This is a list of the latest {{ latest.count }} entries published in my blog.</p>
+{% endblock %}
