@@ -18,12 +18,33 @@
                     {% block content %}
                     {% endblock %}
             </section>
+            {% block sidebar %}
             <aside>
-         <h3>Titulo de contenido</h3>
-         <p>contenido</p>
+                <h2>Navigation</h2>
+                <ul>
+                    <li>
+                        <a href="{% url blogman_entry_archive_index %}">Entries</a>
+                    </li>
+                    <li>
+                        <a href="{% url  blogman_entry_archive_index %}">Links</a>
+                    </li>
+                </ul>
             </aside>
-            <footer> </span>
-            <p style="padding-left: 30px;"><span style="color: #333399;"> </span></p>
-            <span style="color: #333399;"></footer>
+            {% load blogman_tags %}
+            <section>
+                        <h2>Latest entries in the weblog</h2>
+                        <ul>
+                            {% get_latest_entries %}
+                            {% for entry in latest_entries %}
+                                <li>
+                                    <a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a>, posted {{ entry.pub_date|timesince }} ago.
+                                </li>
+                            {% endfor %}
+                        </ul>          
+            </section>
+           {% endblock %}  
+            <footer>
+                hello
+            </footer>
     </body>
 </html>
