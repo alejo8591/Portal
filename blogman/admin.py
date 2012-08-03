@@ -14,6 +14,7 @@ class CategoryAdmin(admin.ModelAdmin):
     
 class EntryAdmin(admin.ModelAdmin):
     prepopulated_fields = { 'slug': ['slug'] }
+    Entry.objects.all()
         
 admin.site.unregister(FlatPage)
 admin.site.register(FlatPage, FlatPageAdmin)
