@@ -3,7 +3,7 @@
 import dj_database_url
 import os
 ROOT_CONF = os.path.dirname(os.path.realpath(__file__))
-__version__ = "0.0.5"
+__version__ = "0.0.6"
 __status__ = "alpha"
 
 DEBUG = True
@@ -103,6 +103,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
+    'django.contrib.comments',
+    'django.contrib.markup',
     'grappelli',
     'django.contrib.staticfiles',
     'django.contrib.admin',
