@@ -1,20 +1,16 @@
 # -*- coding: utf-8 -*-
 from django.db import models
+from django.conf import settings
 from datetime import datetime
 from django.contrib.auth.models import User
-
 from taggit.managers import TaggableManager
 from markdown import markdown
 
-class LiveEntryManager(models.Manager):
-    def get_query_set(self):
-        return super(LiveEntryManager, self).get_query_set().filter(status=self.model.LIVE_STATUS)
 
 class Category(models.Model):
     title = models.CharField(max_length=250, verbose_name='Título', help_text="Título de la Categoria, max. 250 caracteres")
     slug = models.SlugField(unique=True, verbose_name='Slug', help_text="Direcciónes para el trabajo SEO")
     description = models.TextField(verbose_name='Descripción', help_text="Descripción del articulo")
-    
     
     def live_entry_set(self):
         from blogman.models import Entry
@@ -29,6 +25,10 @@ class Category(models.Model):
     
     def __unicode__(self):
         return self.title
+    
+class LiveEntryManager(models.Manager):
+    def get_query_set(self):
+        return super(LiveEntryManager, self).get_query_set().filter(status=self.model.LIVE_STATUS)
         
 class Entry(models.Model):
     # Constants for model Entry refer to a Status post
@@ -56,8 +56,8 @@ class Entry(models.Model):
     body_html = models.TextField(editable=False, blank=True)
     
     # Use model manager for Live Entry or Post
-    live = LiveEntryManager()
     objects = models.Manager()
+    live = LiveEntryManager()
     
     class Meta:
         verbose_name_plural = "Entries"
