@@ -166,3 +166,4 @@ LOGGING = {
         },
     }
 }
+AKISMET_API_KEY = ''
