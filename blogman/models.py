@@ -5,7 +5,11 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 from markdown import markdown
-
+from django.contrib.comments.models import Comment
+from akismet import Akismet
+from django.contrib.sites.models import Site
+from django.utils.encoding import smart_str
+from django.contrib.comments.signals import comment_will_be_posted
 
 class Category(models.Model):
     title = models.CharField(max_length=250, verbose_name='Título', help_text="Título de la Categoria, max. 250 caracteres")
@@ -113,3 +117,25 @@ class Link(models.Model):
             'day': self.pub_date.strftime('%d'),
             'slug': self.slug
         })
+
+def moderate_comment(sender, instance, **kwargs):
+    if not instance.id:
+        entry = instance.content_object
+        delta = datetime.now() - entry.pub_date
+        if delta.days > 30:
+            instance.is_public = False
+        else:
+            current_site = Site.objects.get_current()
+            akismet_api = Akismet(key=settings.AKISMET_API_KEY, blog_url="http://%s/" %current_site.domain)
+            if akismet_api.verify_key():
+                akismet_data = {'comment_type':'comment',
+                                'referrer':'',
+                                'user_ip':instance.ipd_address,
+                                'user_agent':''}
+                if akismet_api.comment_check(smart_str(instance.comment),
+                                             akismet_data,
+                                             build_data=True):
+                    instance.is_public = False    
+        
+        
+comment_will_be_posted.connect(moderate_comment, sender=Comment)
