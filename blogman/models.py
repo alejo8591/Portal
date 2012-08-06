@@ -10,6 +10,7 @@ from akismet import Akismet
 from django.contrib.sites.models import Site
 from django.utils.encoding import smart_str
 from django.contrib.comments.signals import comment_will_be_posted
+from django.core.mail import mail_managers
 
 class Category(models.Model):
     title = models.CharField(max_length=250, verbose_name='Título', help_text="Título de la Categoria, max. 250 caracteres")
@@ -118,24 +119,25 @@ class Link(models.Model):
             'slug': self.slug
         })
 
-def moderate_comment(sender, instance, **kwargs):
-    if not instance.id:
-        entry = instance.content_object
-        delta = datetime.now() - entry.pub_date
+def moderate_comment(sender, comment, request, **kwargs):
+    if not comment.id:
+        entry = comment.content_object
+        delta = datetimen.now() - entry.pub_date
         if delta.days > 30:
-            instance.is_public = False
-        else:
-            current_site = Site.objects.get_current()
-            akismet_api = Akismet(key=settings.AKISMET_API_KEY, blog_url="http://%s/" %current_site.domain)
+            comment.is_public = False
+        else: 
+            akismet_api = Akismet(key=settings.AKISMET_API_KEY, blog_url="http://%s/" % Site.objects.get_current().domain)
             if akismet_api.verify_key():
                 akismet_data = {'comment_type':'comment',
-                                'referrer':'',
-                                'user_ip':instance.ipd_address,
-                                'user_agent':''}
-                if akismet_api.comment_check(smart_str(instance.comment),
+                                'referrer':request.META['HTTP_REFERER'],
+                                'user_ip':comment.ip_address,
+                                'user_agent':request.META['HTTP_USER_AGENT']}
+                if akismet_api.comment_check(smart_str(comment.comment),
                                              akismet_data,
                                              build_data=True):
-                    instance.is_public = False    
-        
+                    comment.is_public = False    
+        email_body = "%s posted a new comment on the entry '%s'."
+        mail_manager("New comment Posted",
+                     email_body % (comment.name, comment.content_object))
         
 comment_will_be_posted.connect(moderate_comment, sender=Comment)
