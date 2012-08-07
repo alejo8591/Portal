@@ -9,7 +9,7 @@ from django.contrib.comments.models import Comment
 from akismet import Akismet
 from django.contrib.sites.models import Site
 from django.utils.encoding import smart_str
-from django.contrib.comments.signals import comment_will_be_posted
+from django.contrib.comments.moderation import moderator, CommentModerator
 from django.core.mail import mail_managers
 
 class Category(models.Model):
@@ -118,26 +118,23 @@ class Link(models.Model):
             'day': self.pub_date.strftime('%d'),
             'slug': self.slug
         })
-
-def moderate_comment(sender, comment, request, **kwargs):
-    if not comment.id:
-        entry = comment.content_object
-        delta = datetimen.now() - entry.pub_date
-        if delta.days > 30:
-            comment.is_public = False
-        else: 
-            akismet_api = Akismet(key=settings.AKISMET_API_KEY, blog_url="http://%s/" % Site.objects.get_current().domain)
-            if akismet_api.verify_key():
-                akismet_data = {'comment_type':'comment',
-                                'referrer':request.META['HTTP_REFERER'],
-                                'user_ip':comment.ip_address,
-                                'user_agent':request.META['HTTP_USER_AGENT']}
-                if akismet_api.comment_check(smart_str(comment.comment),
-                                             akismet_data,
-                                             build_data=True):
-                    comment.is_public = False    
-        email_body = "%s posted a new comment on the entry '%s'."
-        mail_manager("New comment Posted",
-                     email_body % (comment.name, comment.content_object))
-        
-comment_will_be_posted.connect(moderate_comment, sender=Comment)
+    
+class EntryModerator(CommentModerator):
+    auto_moderate_field='pub_date'
+    moderator_after = 10
+    email_notification = True
+    
+    def moderate(self, comment, content_object, request):
+        already_moderated = super(EntryModerator, self).moderate(comment, content_object, request)
+        if already_moderated:
+            return True
+        akismet_api = Akismet(key=settings.AKISMET_API_KEY, blog_url="http:/%s/" % Site.objects.get_current().domain)
+        if akismet_api.verify_key():
+            { 'comment_type': 'comment',
+              'referrer': request.META['HTTP_REFERER'],
+              'user_ip': comment.ip_address,
+              'user-agent': request.META['HTTP_USER_AGENT'] }
+            return akismet_api.comment_check(smart_str(comment.comment), akismet_data, build_data=True)
+        return False
+    
+moderator.register(Entry, EntryModerator)
