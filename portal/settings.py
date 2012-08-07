@@ -13,6 +13,7 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
     ('Alejandro Romero', 'alejo8591@gmail.com'),
 )
+# for spam email
 MANAGERS = (
     ('Alejandro Romero', 'alejo8591@gmail.com'),
 )
@@ -170,4 +171,5 @@ LOGGING = {
         },
     }
 }
-AKISMET_API_KEY = '6683e7b5e67b'
+#Akismet api key
+AKISMET_API_KEY = ''
