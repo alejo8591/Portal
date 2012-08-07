@@ -1,11 +1,13 @@
 from django.conf.urls import patterns, include, url
 from blogman.views import entries_index
 from django.conf import settings
+from blogman.feeds import LatestEntriesFeed
+
+feeds = { 'entries': LatestEntriesFeed }
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
-
 from django.views.generic.date_based import object_detail
 
 urlpatterns = patterns('',
@@ -19,6 +21,7 @@ urlpatterns = patterns('',
     (r'^blogman/categories/', include('blogman.urls.categories')),
     (r'^blogman/links/', include('blogman.urls.links')),
     (r'^comments/', include('django.contrib.comments.urls')),
+    (r'^blogman/feeds/$', LatestEntriesFeed()),
     url(r'^', include('django.contrib.flatpages.urls')),
 )
 
