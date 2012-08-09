@@ -1,4 +1,4 @@
-{% extends 'blogman/base_entries.html' %}
+{% extends 'blogman/base_entry.html' %}
 {% block title %}{{ block.super }} | {{ year }} {% endblock %}
 {% block content %}
     <ul>
@@ -10,7 +10,7 @@
     </ul>
 {% endblock %}
 
-{% block whatis %}
+{% block sidebar %}
     <p>This is a list of months in {{ year }} in which I published entries in
      my blog.</p>
 {% endblock %}
