@@ -1,1 +1,16 @@
 {% extends "base.html" %}
+{% block title %}{{ block.super }} | {{ year }} {% endblock %}
+{% block content %}
+    <ul>
+        {% for month in date_list %}
+            <li>
+                <a href="{% url blogman_link_archive_month year,month|date:"b" %}">{{ month|date:"F" }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block sidebar %}
+    <p>This is a list of months in {{ year }} in which I published entries in
+     my blog.</p>
+{% endblock %}
