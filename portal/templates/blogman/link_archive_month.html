@@ -1,0 +1,20 @@
+{% extends "blogman/base_entries.html" %}
+
+{% block title %}{{ block.super }} | Links in {{ month|date:"F, Y" }}{% endblock %}
+
+{% block content %}
+    {% for link in object_list %}
+       <h2>{{ link.title }}</h2>
+       <p>Published on {{ link.pub_date|date:"F j, Y" }}</p>
+       {% if link.excerpt_html %}
+        {{ link.excerpt_html|safe }}
+       {% else %}
+         {{ link.body_html|truncatewords_html:"50"|safe }}
+       {% endif %}
+       <p><a href="{{ link.get_absolute_url }}">Read full entry</a></p>
+     {% endfor %}
+{% endblock %}
+
+{% block sidebar %}
+<p>This is a list of entries published in {{ month|date:"F, Y" }}.</p>
+{% endblock %}
