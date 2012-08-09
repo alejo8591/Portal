@@ -1,1 +1,13 @@
-{% extends "./base.html" %}
+{% extends "blogman/base.html" %}
+{% block title %}{{ block.super }} | Categories{% endblock %}
+
+{% block content %}
+    <h2>Categories</h2>
+    {% for object in object_list %}
+      <p><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></p>
+    {% endfor %}
+{% endblock %}
+
+{% block sidebar %}
+<p>This is a list of the {{ object_list.count }} categories.</p>
+{% endblock %}
