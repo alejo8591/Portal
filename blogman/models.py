@@ -85,7 +85,6 @@ class Entry(models.Model):
             'day': self.pub_date.strftime('%d'),
             'slug': self.slug
         })
-    #get_absolute_url = models.permalink(get_absolute_url)
     
     live = LiveEntryManager()
     objects = models.Manager()
