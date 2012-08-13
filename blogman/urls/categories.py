@@ -1,5 +1,4 @@
 from django.conf.urls import patterns, url, include
-#from django.conf.urls.defaults import *
 from blogman.models import Category
 
 urlpatterns = patterns('',
