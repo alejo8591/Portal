@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 from blogman.views import entries_index
 from django.conf import settings
 from blogman.feeds import LatestEntriesFeed
+from codeman.views import languages
 
 feeds = { 'entries': LatestEntriesFeed }
 
@@ -22,9 +23,9 @@ urlpatterns = patterns('',
     (r'^blogman/links/', include('blogman.urls.links')),
     (r'^comments/', include('django.contrib.comments.urls')),
     (r'^blogman/feeds/$', LatestEntriesFeed()),
-    (r'^snippets/', include('codeman.urls.snippets')),
     (r'^languages/', include('codeman.urls.languages')),
-    url(r'^', include('django.contrib.flatpages.urls')),
+    (r'^snippets/', include('codeman.urls.snippets')),
+    (r'^', include('django.contrib.flatpages.urls')),
 )
 if settings.DEBUG:
     urlpatterns += patterns('',
