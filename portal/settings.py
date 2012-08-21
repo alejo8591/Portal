@@ -121,6 +121,7 @@ INSTALLED_APPS = (
     'taggit',
     # 'django.contrib.admindocs',
     'blogman',
+    'codeman',
 )
 
 GRAPPELLI_ADMIN_TITLE = "<li class='user-options-container collapse closed'> \

@@ -22,9 +22,10 @@ urlpatterns = patterns('',
     (r'^blogman/links/', include('blogman.urls.links')),
     (r'^comments/', include('django.contrib.comments.urls')),
     (r'^blogman/feeds/$', LatestEntriesFeed()),
+    (r'^snippets/', include('codeman.urls.snippets')),
+    (r'^languages/', include('codeman.urls.languages')),
     url(r'^', include('django.contrib.flatpages.urls')),
 )
-
 if settings.DEBUG:
     urlpatterns += patterns('',
         (r'^site_media/(?P<path>.*)$', 'django.views.static.serve',
