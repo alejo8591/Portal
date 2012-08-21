@@ -6,14 +6,14 @@ from taggit.managers import TaggableManager
 from datetime import datetime, date
 from markdown import markdown 
 
-class Language(models.Models):
+class Language(models.Model):
     name = models.CharField(max_length=120)
     slug = models.SlugField(unique=True)
     language_code = models.CharField(max_length=60)
     mime_type = models.CharField(max_length=60)
     
     class Meta:
-        ordering = ['name']
+        ordering = ['-name']
         
     def __unicode__(self):
         return self.name
@@ -38,7 +38,7 @@ class Snippet(models.Model):
     update_date = models.DateTimeField(editable=False)
     
     class Meta:
-        ordening = ['-pub_date']
+        ordering = ['-pub_date']
         
     def __unicode__(self):
         return self.title
