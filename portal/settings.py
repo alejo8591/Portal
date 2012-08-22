@@ -3,8 +3,8 @@
 import dj_database_url
 import os
 ROOT_CONF = os.path.dirname(os.path.realpath(__file__))
-__version__ = "0.0.9"
-__status__ = "alpha"
+__version__ = '0.0.9'
+__status__ = 'alpha'
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -56,8 +56,8 @@ USE_TZ = True
 MEDIA_ROOT = ROOT_CONF + '/uploads/'
 MEDIA_URL = '/uploads/'
 STATIC_ROOT = ROOT_CONF + '/static/'
-STATIC_URL = '/static'
-ADMIN_MEDIA_PREFIX = STATIC_URL + '/grappelli/'
+STATIC_URL = '/static/'
+ADMIN_MEDIA_PREFIX = STATIC_URL + 'grappelli/'
 # Additional locations of static files
 STATICFILES_DIRS = (
     (ROOT_CONF + '/static_files/'),
@@ -80,8 +80,6 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
 )
-
-ADMIN_MEDIA_PREFIX = STATIC_URL + "grappelli/"
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -123,10 +121,7 @@ INSTALLED_APPS = (
     'codeman',
 )
 
-GRAPPELLI_ADMIN_TITLE = "<li class='user-options-container collapse closed'> \
-<a href='javascript://' class='user-options-handler collapse-handler'> \
-Portal %s</a><ul class='user-options'><li><a href='/' \
-style='padding:10px;'>Back to site</a></li></ul></li>" % (__version__)
+GRAPPELLI_ADMIN_TITLE = "Portal %s" % (__version__)
 
 
 # A sample logging configuration. The only tangible logging
@@ -159,13 +154,3 @@ LOGGING = {
 }
 #Akismet api key
 AKISMET_API_KEY = '6683e7b5e67b'
-# TinyMCE
-TINYMCE_JS_URL = os.path.join(STATIC_ROOT, "tiny_mce/tiny_mce.js")
-TINYMCE_DEFAULT_CONFIG = {
-    'plugins': "table,spellchecker,paste,searchreplace",
-    'theme': "advanced",
-    'cleanup_on_startup': True,
-    'custom_undo_redo_levels': 10,
-}
-TINYMCE_SPELLCHECKER = True
-TINYMCE_COMPRESSOR = True

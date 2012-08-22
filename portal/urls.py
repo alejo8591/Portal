@@ -12,11 +12,8 @@ admin.autodiscover()
 from django.views.generic.date_based import object_detail
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'portal.views.home', name='home'),
-    # url(r'^portal/', include('portal.foo.urls')),
-    (r'^admin/', include(admin.site.urls)),
     (r'^grappelli/', include('grappelli.urls')),
+    (r'^admin/', include(admin.site.urls)),
     (r'^blogman/', include('blogman.urls.entries')),
     (r'^blogman/categories/', include('blogman.urls.categories')),
     (r'^blogman/links/', include('blogman.urls.links')),
@@ -25,7 +22,6 @@ urlpatterns = patterns('',
     (r'^languages/', include('codeman.urls.languages')),
     (r'^snippets/', include('codeman.urls.snippets')),
     (r'^', include('django.contrib.flatpages.urls')),
-    #(r'^tinymce/', include('tinymce.urls')),
 )
 if settings.DEBUG:
     urlpatterns += patterns('',
