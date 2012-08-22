@@ -115,7 +115,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.flatpages',
     'south',
-    'tinymce',
     # ------ in test -------
     #'tagging',
     'taggit',
@@ -129,20 +128,6 @@ GRAPPELLI_ADMIN_TITLE = "<li class='user-options-container collapse closed'> \
 Portal %s</a><ul class='user-options'><li><a href='/' \
 style='padding:10px;'>Back to site</a></li></ul></li>" % (__version__)
 
-#Config tinyMCE
-TINYMCE_JS_URL = MEDIA_URL + 'js/tiny_mce/tiny_mce.js'
-TINYMCE_JS_ROOT = MEDIA_URL + 'js/tiny_mce/tiny_mce.js'
-TINYMCE_DEFAULT_CONFIG = {
-   'plugins': "table,spellchecker,paste,searchreplace",
-   'theme': "advanced",
-    'cleanup_on_startup': True,
-    'custom_undo_redo_levels': 10,
-}
-
-TINYMCE_SPELLCHECKER = False
-TINYMCE_COMPRESSOR = False
-TINYMCE_FILEBROWSER = True
-CMS_USE_TINYMCE = True
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -174,3 +159,13 @@ LOGGING = {
 }
 #Akismet api key
 AKISMET_API_KEY = '6683e7b5e67b'
+# TinyMCE
+TINYMCE_JS_URL = os.path.join(STATIC_ROOT, "tiny_mce/tiny_mce.js")
+TINYMCE_DEFAULT_CONFIG = {
+    'plugins': "table,spellchecker,paste,searchreplace",
+    'theme': "advanced",
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 10,
+}
+TINYMCE_SPELLCHECKER = True
+TINYMCE_COMPRESSOR = True
