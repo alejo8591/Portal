@@ -5,6 +5,7 @@ Pygments==1.5
 South==0.7.6
 akismet==0.2.0
 dj-database-url==0.2.1
+django-dajax==0.9.2
 django-dajaxice==0.5.2
 django-grappelli==2.4.0
 django-taggit==0.9.3
