@@ -1,5 +1,13 @@
+<script type="text/javascript">
+                function my_js_callback(data){
+                        alert(data.message);
+                }
+</script>
 {% extends "blogman/base.html" %}
+{% load dajaxice_templatetags %}
 {% block content %}
+    {% dajaxice_js_import %}
+    <h1><a onclick="Dajaxice.blogman.helloWorld(my_js_callback)">SALUDO</a></h1>
         {% for entry in latest %}
             <h2>{{ entry.title }}</h2>
             <p>Published on {{ entry.pub_date|date:"F j, Y" }}</p>
