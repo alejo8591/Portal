@@ -25,7 +25,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'portal',                      # Or path to database file if using sqlite3.
         'USER': 'postgres',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
+        'PASSWORD': '3193115',                  # Not used with sqlite3.
         'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
     }
@@ -68,7 +68,8 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'dajaxice.finders.DajaxiceFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -78,7 +79,7 @@ SECRET_KEY = '130#m21d6%89d$r4v@p$bppm2u7imnpn%0v4$&amp;jrz=#+3=0tl3'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -100,6 +101,16 @@ TEMPLATE_DIRS = (
      (ROOT_CONF + '/templates'),
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.request',
+    'django.contrib.messages.context_processors.messages'
+)
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -108,6 +119,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.comments',
     'django.contrib.markup',
+    'dajaxice',
     'grappelli',
     'django.contrib.staticfiles',
     'django.contrib.admin',
