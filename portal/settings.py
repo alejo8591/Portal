@@ -165,4 +165,4 @@ LOGGING = {
     }
 }
 #Akismet api key
-AKISMET_API_KEY = ''
+AKISMET_API_KEY = '6683e7b5e67b'
