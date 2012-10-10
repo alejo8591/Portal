@@ -4,9 +4,13 @@
                 }
 </script>
 {% extends "blogman/base.html" %}
-{% load dajaxice_templatetags %}
 {% block content %}
+    {% load dajaxice_templatetags %}
     {% dajaxice_js_import %}
+    <ul>{% load menubuilder %}{% menu nosotros %}
+    {% for item in menuitems %}<li><a href="{{ item.url }}" title="{{ item.title|escape }}"{% if item.current %} class='current'{% endif %}>{{ item.title }}</a></li>
+    {% endfor %}
+</ul>
     <h1><a onclick="Dajaxice.blogman.helloWorld(my_js_callback)">SALUDO</a></h1>
         {% for entry in latest %}
             <h2>{{ entry.title }}</h2>
