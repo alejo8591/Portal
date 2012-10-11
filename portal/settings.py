@@ -116,12 +116,13 @@ INSTALLED_APPS = (
     'dajaxice',
     'dajax',
     'south',
+    'menus',
     # ------ in test -------
     #'tagging',
     'taggit',
     # 'django.contrib.admindocs',
     'blogman',
-    'codeman',
+    #'codeman',
 )
 
 GRAPPELLI_ADMIN_TITLE = "Portal %s" % (__version__)
@@ -165,4 +166,4 @@ LOGGING = {
     }
 }
 #Akismet api key
-AKISMET_API_KEY = '6683e7b5e67b'
+AKISMET_API_KEY = ''
