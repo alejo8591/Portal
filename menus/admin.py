@@ -1,5 +1,5 @@
 from django.contrib import admin
-from menus.models import Menu, MenuItem, FlatPage
+from menus.models import Menu, MenuItem
 
 class MenuItemInline(admin.TabularInline):
     model = MenuItem
