@@ -28,8 +28,8 @@ class Menu(models.Model):
 class MenuItem(models.Model):
     menu = models.ForeignKey('Menu')
     order = models.IntegerField()
-    link_url = models.CharField(max_length=100, help_text='URL or URI to the content, eg /about/ or http://foo.com/', blank=True, null=True)
-    flatpage = models.ForeignKey(FlatPage, blank=True, null=True)
+    #link_url = models.CharField(max_length=100, help_text='URL or URI to the content, eg /about/ or http://foo.com/', blank=True, null=True)
+    flatpage = models.ForeignKey(FlatPage, help_text='Selection static page')
     title = models.CharField(max_length=100)
     login_required = models.BooleanField(blank=True, help_text='Should this item only be shown to authenticated users?')
     anonymous_only = models.BooleanField(blank=True, help_text='Should this item only be shown to non-logged-in users?')
