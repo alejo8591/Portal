@@ -8,7 +8,7 @@ def build_menu(parser, token):
     """
     {% menu menu_name %}
     """
-    # Error Handling
+    # Error Handling  
     try:
         # split_contents() knows not to split quoted strings.
         tag_name, menu_name = token.split_contents()
@@ -79,23 +79,22 @@ def get_items(menu_name, current_path, user):
         return []
 
     for i in MenuItem.objects.filter(menu=menu).order_by('order'):
-        # Support flatpage
-        #current = i.flatpage.url if (len(i.link_url)== 0 and i.flatpage.url>0) else (( i.link_url != '/' and current_path.startswith(i.link_url)) or ( i.link_url == '/' and current_path == '/' ))
-        #if menu.base_url and i.link_url == menu.base_url and current_path != i.link_url:
-            #urrent = False
-        current = i.flatpage.url
         show_anonymous = i.anonymous_only and user.is_anonymous()
         show_auth = i.login_required and user.is_authenticated()
         if (not (i.login_required or i.anonymous_only)) or (i.login_required and show_auth) or (i.anonymous_only and show_anonymous):
-            menuitems.append({'url': i.flatpage.url, 'title': i.title, 'current': current,})
-            """
-                try:
-                    i.flatpage.url==None
-                    if(len(i.link_url)>0 and i.flatpage.url==None):
-                        menuitems.append({'url': i.link_url, 'title': i.title, 'current': current,}) if (len(i.link_url)>0) else menuitems.append({'url': i.flatpage.url, 'title': i.title, 'current': current,})
-                except:
-                        menuitems.append({'url': i.link_url, 'title': i.title, 'current': current,}) if (len(i.link_url)>0) else menuitems.append({'url': i.flatpage.url, 'title': i.title, 'current': current,})              
-            """
+        # Support flatpage
+            flag = 0
+            try:
+                i.flatpage.url==None
+            except AttributeError:
+                flag = 1
+            if(len(i.link_url)==0 and flag==1):return menuitems
+            elif(len(i.link_url)>0 and flag==1):
+                current = ( i.link_url != '/' and current_path.startswith(i.link_url) and current_path.endswith(i.link_url)) or ( i.link_url == '/' and current_path == '/' )
+                if menu.base_url and i.link_url == menu.base_url and current_path != i.link_url:current = False
+                menuitems.append({'url': '%s%s%s' %('/',i.link_url,'/'), 'title': i.title, 'current': current})
+            elif(len(i.link_url)==0 and flag==0 or len(i.link_url)>0 and flag==0):
+                menuitems.append({'url': i.flatpage.url, 'title': i.title, 'current': i.flatpage.url})            
     if cache_time >= 0 and not debug:
         cache.set(cache_key, menuitems, cache_time)
     return menuitems
