@@ -1,7 +1,7 @@
 Django==1.4.1
 Markdown==2.2.0
 PIL==1.1.7
-Pygments==1.5
+Pygments==2.7.4
 South==0.7.6
 akismet==0.2.0
 dj-database-url==0.2.1
